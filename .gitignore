@@ -1,0 +1,26 @@
+# secret
+/config/config.local.js
+/config/config.prod.js
+/config/config.test.js
+/config/config.unittest.js
+.env*
+
+# sqlite
+*.sqlite
+*.sqlite3
+
+# egg.js
+logs/
+npm-debug.log
+yarn-error.log
+node_modules/
+package-lock.json
+yarn.lock
+coverage/
+.idea/
+run/
+.DS_Store
+*.sw*
+*.un~
+typings/
+.nyc_output/
