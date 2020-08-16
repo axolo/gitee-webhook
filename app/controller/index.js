@@ -12,7 +12,9 @@ class HomeController extends Controller {
     const { ctx } = this;
     const { request } = ctx;
     const { header, query, body } = request;
-    ctx.body = { header, query, body };
+    const res = { header, query, body };
+    console.log(res);
+    ctx.body = res;
   }
 }
 
