@@ -7,7 +7,9 @@ const Controller = require('egg').Controller;
 class HomeController extends Controller {
   async create() {
     const { ctx, app } = this;
-    const { repository: { url }, hook_name, timestamp, sign } = ctx.request.body;
+    const { header, body, query } = ctx.request;
+    const { repository: { url }, hook_name, timestamp, sign } = body;
+    console.log({ header, body, query });
     const hook = app.config.hooks.find(h => h.repository.url === url && h.hook_name === hook_name);
     if (!hook) throw new Error('hooks not found');
     const { secret } = hook;

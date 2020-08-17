@@ -35,12 +35,12 @@ module.exports = appInfo => {
   // WebHooks
   // https://gitee.com/help/categories/40
   config.hooks = [{
-    repository: {
-      url: 'https://gitee.com/oschina/git-osc',
-    },
-    hook_name: 'push_hooks',
-    secret: 'this is secret',
-    bash: 'git-osc-push.sh',
+    userAgent: 'git-oschina-hook', // 供应商识别串
+    repository: { url: 'https://gitee.com/oschina/git-osc' }, // 仓库
+    ref: 'refs/heads/test_version', // 触发的分支
+    hook_name: 'push_hooks', // 触发的事件
+    secret: 'this is secret', // 密钥
+    bash: 'git-osc-push.sh', // 执行的脚本
   }];
 
   return config;
