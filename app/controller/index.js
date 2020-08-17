@@ -1,19 +1,24 @@
 'use strict';
 
+const crypto = require('crypto');
+const cp = require('child_process');
 const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
-  async index() {
-    const { ctx } = this;
-    ctx.body = 'hi, egg';
-  }
-
   async create() {
-    const { ctx } = this;
-    const { request } = ctx;
-    const { header, query, body } = request;
-    const res = { header, query, body };
-    console.log(res);
+    const { ctx, app } = this;
+    const { repository: { url }, hook_name, timestamp, sign } = ctx.request.body;
+    const hook = app.config.hooks.find(h => h.repository.url === url && h.hook_name === hook_name);
+    if (!hook) throw new Error('hooks not found');
+    const { secret } = hook;
+    const text = timestamp + '\n' + secret;
+    const hmac = crypto.createHmac('sha256', secret).update(text).digest('base64');
+    if (hmac !== sign) throw new Error('sign not match');
+    cp.exec('ls', (err, stdout, stderr) => {
+      if (err) throw new Error(err);
+      console.log({ stdout, stderr });
+    });
+    const res = { errcode: 0, errmsg: 'ok' };
     ctx.body = res;
   }
 }

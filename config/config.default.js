@@ -22,11 +22,6 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
 
-  // add your user config here
-  const userConfig = {
-    // myAppName: 'egg',
-  };
-
   // CSRF
   // https://eggjs.org/zh-cn/core/security.html
   config.security = {
@@ -37,8 +32,16 @@ module.exports = appInfo => {
     domainWhiteList: [ '*' ], // FIXME: only for development
   };
 
-  return {
-    ...config,
-    ...userConfig,
-  };
+  // WebHooks
+  // https://gitee.com/help/categories/40
+  config.hooks = [{
+    repository: {
+      url: 'https://gitee.com/oschina/git-osc',
+    },
+    hook_name: 'push_hooks',
+    secret: 'this is secret',
+    bash: 'git-osc-push.sh',
+  }];
+
+  return config;
 };
