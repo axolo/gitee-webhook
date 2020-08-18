@@ -1,5 +1,3 @@
-/* eslint valid-jsdoc: "off" */
-
 'use strict';
 
 /**
@@ -40,7 +38,7 @@ module.exports = appInfo => {
     ref: 'refs/heads/test_version', // 触发的分支
     hook_name: 'push_hooks', // 触发的事件
     secret: 'this is secret', // 密钥
-    bash: 'git-osc-push.sh', // 执行的脚本
+    exec: 'bash git-osc-push.sh', // 执行的脚本
   }];
 
   return config;
