@@ -33,8 +33,10 @@ module.exports = appInfo => {
   // WebHooks
   // https://gitee.com/help/categories/40
   config.hooks = [{
-    userAgent: 'git-oschina-hook', // 供应商识别串
-    repository: { url: 'https://gitee.com/oschina/git-osc' }, // 仓库
+    userAgent: 'git-oschina-hook', // 服务商识别串
+    repository: { // 仓库
+      url: 'https://gitee.com/oschina/git-osc',
+    },
     ref: 'refs/heads/test_version', // 触发的分支
     hook_name: 'push_hooks', // 触发的事件
     secret: 'this is secret', // 密钥
