@@ -20,6 +20,8 @@ yarn stop   # 结束后台运行
 1. 本地请使用SSH方式关联仓库，并将本地公钥启用到仓库的WebHooks
 2. 在本应用的配置（`app/config`）里按以下格式配置WebHooks
 
+> 特别提醒：请勿暴露密钥，以免引起不必要的损失
+
 ```js
 // app/config/config.default.js
 config.webhooks = [{
@@ -33,6 +35,9 @@ config.webhooks = [{
   exec: 'ls', // 执行的命令（支持Shell脚本）
 }];
 ```
+
+> 方跃明
+> 2020-08-26
 
 [Egg.js]: https://eggjs.org
 [码云WebHooks]: https://gitee.com/help/categories/40
