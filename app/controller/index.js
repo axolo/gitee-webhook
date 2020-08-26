@@ -8,7 +8,8 @@ class IndexController extends Controller {
     const { body } = ctx.request;
     const { repository: { url } = {}, hook_name, timestamp, sign, ref } = body;
     // 匹配勾子
-    const hook = app.config.hooks.find(h => h.repository.url === url && h.hook_name === hook_name);
+    const { webhooks } = app.config;
+    const hook = webhooks.find(h => h.repository.url === url && h.hook_name === hook_name);
     if (!hook) {
       const errcode = 404;
       ctx.status = errcode;

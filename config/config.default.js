@@ -32,7 +32,7 @@ module.exports = appInfo => {
 
   // WebHooks
   // https://gitee.com/help/categories/40
-  config.hooks = [{
+  config.webhooks = [{
     userAgent: 'git-oschina-hook', // 服务商识别串
     repository: { // 仓库
       url: 'https://gitee.com/oschina/git-osc',
