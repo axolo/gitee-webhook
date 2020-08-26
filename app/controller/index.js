@@ -16,8 +16,15 @@ class IndexController extends Controller {
       ctx.body = { errcode, errmsg: 'hook invalid', errinfo: { url, hook_name } };
       return;
     }
-    // 匹配分支
     const { secret, exec } = hook;
+    // 确认命令
+    if (!exec) {
+      const errcode = 204;
+      ctx.status = errcode;
+      ctx.body = { errcode, errmsg: 'not exec', errinfo: 'nothing to do' };
+      return;
+    }
+    // 匹配分支
     if (hook.ref && hook.ref !== ref) {
       const errcode = 403;
       ctx.status = errcode;
