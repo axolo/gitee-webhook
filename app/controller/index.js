@@ -9,7 +9,7 @@ class IndexController extends Controller {
     const { repository: { url } = {}, hook_name, timestamp, sign, ref } = body;
     // 匹配勾子
     const { webhooks } = app.config;
-    const hook = webhooks.find(h => h.repository.url === url && h.hook_name === hook_name);
+    const hook = webhooks.find(h => h.repository.url === url && h.hook_name === hook_name && h.ref === ref);
     if (!hook) {
       const errcode = 404;
       ctx.status = errcode;
@@ -22,13 +22,6 @@ class IndexController extends Controller {
       const errcode = 204;
       ctx.status = errcode;
       ctx.body = { errcode, errmsg: 'not exec', errinfo: 'nothing to do' };
-      return;
-    }
-    // 匹配分支
-    if (hook.ref && hook.ref !== ref) {
-      const errcode = 403;
-      ctx.status = errcode;
-      ctx.body = { errcode, errmsg: 'ref invalid', errinfo: ref };
       return;
     }
     // 校验签名
