@@ -2,8 +2,7 @@
 
 [Egg.js]版WebHooks实现，当前版本适配[码云WebHooks]。
 
-
-## 命令
+## 运行
 
 安装运行调试命令遵循[Egg.js]规范。
 
@@ -26,14 +25,28 @@ yarn stop   # 结束后台运行
 // app/config/config.default.js
 config.webhooks = [{
   userAgent: 'git-oschina-hook', // 服务商识别串
-  repository: { // 仓库
-    url: 'https://gitee.com/oschina/git-osc', // 仓库地址
-  },
+  repository: { url: 'https://gitee.com/oschina/git-osc' }, // 仓库地址
   ref: 'refs/heads/test_version', // 触发的引用（分支）
   hook_name: 'push_hooks', // 触发的事件（在仓库设置里）
-  secret: 'this is secret', // 密钥（在仓库设置里配置）
-  exec: 'ls', // 执行的命令（支持Shell脚本）
+  secret: 'SECRET_OF_WEBHOOK', // 密钥（在仓库设置里配置）
+  exec: 'bash /root/bash/webhook/git-osc.sh', // 执行的命令（支持Shell脚本）
 }];
+```
+
+> 命令示例
+
+```bash
+#!/bin/bash
+# author: Yueming Fang
+# path: /root/bash/webhook/git-osc.sh
+
+set -ex
+cd /root/projects/git-osc
+yarn stop:dev
+git checkout develop
+git pull
+yarn
+yarn start:dev
 ```
 
 > 方跃明

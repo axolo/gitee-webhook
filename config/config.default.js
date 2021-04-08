@@ -27,20 +27,19 @@ module.exports = appInfo => {
       enable: false,
       // ignore: ctx => require('ip').isPrivate(ctx.ip),
     },
-    domainWhiteList: [ '*' ], // FIXME: only for development
+    // WARNING: only for development
+    domainWhiteList: [ '*' ],
   };
 
   // WebHooks
   // https://gitee.com/help/categories/40
   config.webhooks = [{
     userAgent: 'git-oschina-hook', // 服务商识别串
-    repository: { // 仓库
-      url: 'https://gitee.com/oschina/git-osc',
-    },
-    ref: 'refs/heads/test_version', // 触发的分支
+    repository: { url: 'https://gitee.com/oschina/git-osc' }, // 仓库
+    ref: 'refs/heads/develop', // 触发的分支
     hook_name: 'push_hooks', // 触发的事件
-    secret: 'this is secret', // 密钥
-    exec: 'ls', // 执行的脚本
+    secret: 'SECRET_OF_WEBHOOK', // 密钥
+    exec: 'ls /root/projects/git-osc', // 执行的脚本
   }];
 
   return config;
